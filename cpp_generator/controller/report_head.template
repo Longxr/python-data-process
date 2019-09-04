@@ -1,0 +1,27 @@
+#ifndef ${CLASSDEFINE}_H
+#define ${CLASSDEFINE}_H
+
+#include <JYUIKit/JYUIKit.h>
+
+class ${CLASSNAME}Callback
+{
+public:
+//    virtual void Disconnect() = 0;
+};
+
+class ${CLASSNAME} : public JYWidget
+{
+    Q_OBJECT
+public:
+    explicit ${CLASSNAME}(QWidget *parent = 0);
+    ~${CLASSNAME}();
+
+    virtual void SetCallback(${CLASSNAME}Callback * pCallback);
+
+private:
+    ${CLASSNAME}Callback*     m_pCallback;
+
+    QHBoxLayout*            m_pMainLayout;
+};
+
+#endif // ${CLASSDEFINE}_H

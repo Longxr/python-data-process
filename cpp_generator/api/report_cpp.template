@@ -1,0 +1,56 @@
+#include "${CLASSNAME}Manager.h"
+
+#include <Net/Protocol/Protocol.h>
+
+${CLASSNAME}Response::${CLASSNAME}Response()
+{
+
+}
+
+${CLASSNAME}Response::~${CLASSNAME}Response()
+{
+
+}
+
+//QMap<QString, QString> ${CLASSNAME}Response::ReplacedKeyFromPropertyName()
+//{
+//    QMap<QString, QString> map = ApiResponse::ReplacedKeyFromPropertyName();
+//    map.insert("Width","StreamWidth");
+
+//    return map;
+//}
+
+${CLASSNAME}Manager::${CLASSNAME}Manager() : ApiManager()
+{
+
+}
+
+QString ${CLASSNAME}Manager::GetMethodName()
+{
+    return "Login";
+}
+
+unsigned int ${CLASSNAME}Manager::GetModuleId()
+{
+    return Model_Login;
+}
+
+QMap<QString, QVariant> ${CLASSNAME}Manager::paramsForApi()
+{
+    QMap<QString, QVariant> params;
+    params.insert("SessionId", this->GetSessionId());
+
+    return params;
+}
+
+void ${CLASSNAME}Manager::OnReceiveResponse(QString jsonString)
+{
+    ${CLASSNAME}Response * pResponse = new ${CLASSNAME}Response();
+    pResponse->SetPropertyWithString(jsonString);
+
+    if(m_pCallback) {
+        m_pCallback->OnCallApiDidSuccess(this, pResponse);
+    }
+
+    pResponse->deleteLater();
+}

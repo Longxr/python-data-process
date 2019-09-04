@@ -1,0 +1,35 @@
+#include "${CLASSNAME}Controller.h"
+#include "Common/AppManager/DataCenter.h"
+#include "AppManager/SCManager.h"
+
+/*********************************************************************************
+ * ${CLASSNAME}Controller
+ *
+ *********************************************************************************/
+
+${CLASSNAME}Controller::${CLASSNAME}Controller() : QObject()
+{
+    m_p${CLASSNAME} = 0x0;
+}
+
+${CLASSNAME}Controller::~${CLASSNAME}Controller()
+{
+    JY_RELEASE_CLASS(m_p${CLASSNAME})
+}
+
+//void HomeWidgetController::Disconnect()
+//{
+//    SCManager::ShareInstance()->Disconnect();
+//}
+
+QWidget *${CLASSNAME}Controller::Widget()
+{
+    if(0x0 == m_p${CLASSNAME}) {
+        m_p${CLASSNAME} = new ${CLASSNAME}();
+        m_p${CLASSNAME}->SetCallback(this);
+
+        m_p${CLASSNAME}->setMinimumSize(892, 451);
+    }
+
+    return m_p${CLASSNAME};
+}

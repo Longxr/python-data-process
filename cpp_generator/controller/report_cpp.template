@@ -1,0 +1,32 @@
+#include "${CLASSNAME}.h"
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+//#include <QPainter>
+//#include <QEvent>
+//#include <QMouseEvent>
+
+
+/*********************************************************************************
+ * ${CLASSNAME}
+ *
+ *********************************************************************************/
+
+${CLASSNAME}::${CLASSNAME}(QWidget *parent) : JYWidget(parent)
+{
+    m_pMainLayout               = new QHBoxLayout();
+    m_pMainLayout->setContentsMargins(0, 0, 0, 0);
+    m_pMainLayout->setSpacing(0);
+
+    this->setLayout(m_pMainLayout);
+}
+
+${CLASSNAME}::~${CLASSNAME}()
+{
+
+}
+
+void ${CLASSNAME}::SetCallback(${CLASSNAME}Callback *pCallback)
+{
+    m_pCallback = pCallback;
+}

@@ -1,0 +1,37 @@
+#ifndef ${CLASSDEFINE}MANAGER_H
+#define ${CLASSDEFINE}MANAGER_H
+
+#include <JYJson/JYJson.h>
+
+#include <Common/common_global.h>
+#include <Common/Api/ApiManager.h>
+
+class COMMONSHARED_EXPORT ${CLASSNAME}Response : public ApiResponse
+{
+    Q_OBJECT
+public:
+    ${CLASSNAME}Response();
+    ~${CLASSNAME}Response();
+
+    //virtual QMap<QString, QString> ReplacedKeyFromPropertyName();
+
+    JY_PROPERTY_READWRITE(QString, SessionId)
+};
+
+class COMMONSHARED_EXPORT ${CLASSNAME}Manager : public ApiManager
+{
+    Q_OBJECT
+public:
+    ${CLASSNAME}Manager();
+
+    //ApiManager
+    virtual QString GetMethodName();
+    virtual unsigned int GetModuleId();
+    virtual QMap<QString, QVariant> paramsForApi();
+    virtual void OnReceiveResponse(QString jsonString);
+
+private:
+    JY_PROPERTY_READWRITE(QString, SessionId)
+};
+
+#endif // ${CLASSDEFINE}MANAGER_H

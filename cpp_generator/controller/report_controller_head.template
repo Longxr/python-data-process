@@ -1,0 +1,26 @@
+#ifndef ${CLASSDEFINE}CONTROLLER_H
+#define ${CLASSDEFINE}CONTROLLER_H
+
+#include "${CLASSNAME}.h"
+#include <JYUIKit/JYUIKit.h>
+
+class ${CLASSNAME}Controller  : public QObject
+                            , public JYWidgetController
+                            , public ${CLASSNAME}Callback
+{
+    Q_OBJECT
+public:
+    ${CLASSNAME}Controller();
+    ~${CLASSNAME}Controller();
+
+    //${CLASSNAME}Callback
+//    virtual void Disconnect();
+
+    //JYWidgetController
+    virtual QWidget *Widget();
+
+private:
+    ${CLASSNAME}*     m_p${CLASSNAME};
+};
+
+#endif // ${CLASSDEFINE}CONTROLLER_H
