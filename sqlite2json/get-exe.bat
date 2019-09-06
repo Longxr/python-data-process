@@ -1,0 +1,1 @@
+pyinstaller.exe -F -w -i app_icon.ico sqlite2json.py
