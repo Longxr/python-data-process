@@ -1,0 +1,71 @@
+#include "${CLASSNAME}Controller.h"
+
+/*********************************************************************************
+ * ${CLASSNAME}
+ *
+ *********************************************************************************/
+
+${CLASSNAME}::${CLASSNAME}(QWidget *parent) : JYWidget(parent)
+{
+    m_pMainLayout = nullptr;
+
+    this->setLayout(MainLayout());
+}
+
+${CLASSNAME}::~${CLASSNAME}()
+{
+
+}
+
+void ${CLASSNAME}::SetCallback(${CLASSNAME}Callback *pCallback)
+{
+    m_pCallback = pCallback;
+}
+
+QHBoxLayout* MainLayout()
+{
+    if (nullptr == m_pMainLayout) {
+        m_pMainLayout = new QHBoxLayout(this);
+        m_pMainLayout->setContentsMargins(0, 0, 0, 0);
+        m_pMainLayout->setSpacing(0);
+    }
+
+    return m_pMainLayout;
+}
+
+/*********************************************************************************
+ * ${CLASSNAME}Controller
+ *
+ *********************************************************************************/
+
+${CLASSNAME}Controller::${CLASSNAME}Controller()
+{
+    m_p${CLASSNAME} = nullptr;
+}
+
+${CLASSNAME}Controller::~${CLASSNAME}Controller()
+{
+    JY_RELEASE_CLASS(m_p${CLASSNAME})
+}
+
+//void HomeWidgetController::OnCallXXX()
+//{
+
+//}
+
+QWidget *${CLASSNAME}Controller::Widget()
+{
+    if(0x0 == m_p${CLASSNAME}) {
+        m_p${CLASSNAME} = new ${CLASSNAME}();
+        m_p${CLASSNAME}->SetCallback(this);
+
+        m_p${CLASSNAME}->setMinimumSize(892, 451);
+    }
+
+    return m_p${CLASSNAME};
+}
+
+${CLASSNAME}* Get${CLASSNAME}()
+{
+    return qobject_cast<${CLASSNAME} *>(Widget());
+}

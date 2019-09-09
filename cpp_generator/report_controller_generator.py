@@ -2,6 +2,7 @@
 
 from string import Template
 
+
 class ReportCppGenerator(object):
     '''
     classdocs
@@ -30,10 +31,10 @@ class ReportCppGenerator(object):
 
 
         # 2.模版文件
-        template_cpp_file = open(r'controller/report_cpp.template','r')
+        template_cpp_file = open(r'controller/widget_controller_cpp.template','r')
         cpp_tmpl = Template(template_cpp_file.read())
         
-        template_head_file = open(r'controller/report_head.template','r')
+        template_head_file = open(r'controller/widget_controller_head.template','r')
         head_tmpl = Template(template_head_file.read())
         
         # 2.模板进行转换

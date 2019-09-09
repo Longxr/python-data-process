@@ -1,0 +1,177 @@
+#include "${CLASSNAME}Controller.h"
+#include <Common/Components/JYProgressHUD.h>
+#include <Common/AppManager/LocalizationInterceptor.h>
+#include <Common/Components/JYToast.h>
+
+/*********************************************************************************
+ * ${CLASSNAME}
+ *
+ *********************************************************************************/
+
+${CLASSNAME}::${CLASSNAME}(QWidget *parent, Qt::WindowFlags f) : ModalBaseWidget(parent, f)
+{
+    m_pCallback             = 0x0;
+    m_pContentWidget        = 0x0;
+    m_pDoneBtn              = 0x0;
+    m_pEmptyWidget          = 0x0;
+
+    m_pMainLayout           = 0x0;
+    m_pBottomBtnLayout      = 0x0;
+
+    HeadView()->SetTitle(JY_TR(STR_ZXYB_TEACHER_PEN));
+
+    setLayout(MainLayout());
+}
+
+${CLASSNAME}::~${CLASSNAME}()
+{
+
+}
+
+void ${CLASSNAME}::ShowEmpty(bool checked)
+{
+    if(checked) {
+        ContentWidget()->ShowWidget(EmptyWidget());
+    }
+    else {
+        //ContentWidget()->ShowWidget(ListView());
+    }
+}
+
+void ${CLASSNAME}::SetCallback(${CLASSNAME}Callback *pCallback)
+{
+    m_pCallback = pCallback;
+}
+
+JYContainer *${CLASSNAME}::ContentWidget()
+{
+    if (0x0 == m_pContentWidget) {
+        m_pContentWidget = new JYContainer(this);
+        m_pContentWidget->AddWidget(EmptyWidget());
+        //m_pContentWidget->AddWidget(ListView());
+    }
+    return m_pContentWidget;
+}
+
+QPushButton *${CLASSNAME}::DoneBtn()
+{
+    if(0x0 == m_pDoneBtn) {
+        m_pDoneBtn = new QPushButton(this);
+        m_pDoneBtn->setObjectName("standard");
+        m_pDoneBtn->setText(JY_TR(JY_STR_WORD_OK));
+
+        connect(m_pDoneBtn, &QPushButton::clicked, this, [=](){
+            //m_pCallback->OnCallSelectedPen();
+        });
+    }
+
+    return m_pDoneBtn;
+}
+
+JYWidget *${CLASSNAME}::EmptyWidget()
+{
+    if(0x0 == m_pEmptyWidget) {
+        m_pEmptyWidget = new JYWidget(this);
+        QVBoxLayout* pLayout = new QVBoxLayout();
+        QLabel* pIcon = new QLabel(this);
+        QLabel* pText = new QLabel(this);
+
+        pIcon->setObjectName("empty-icon");
+        pIcon->setFixedSize(34, 38);
+
+        pText->setObjectName("empty-text");
+        pText->setAlignment(Qt::AlignHCenter);
+        pText->setText(JY_TR(STR_ZXYB_TEACHER_EMPTY_TEXT));
+
+        pLayout->setMargin(0);
+        pLayout->setSpacing(6);
+        pLayout->addStretch();
+        pLayout->addWidget(pIcon, 0, Qt::AlignHCenter);
+        pLayout->addWidget(pText);
+        pLayout->addStretch();
+
+        m_pEmptyWidget->setLayout(pLayout);
+    }
+
+    return m_pEmptyWidget;
+}
+
+QVBoxLayout *${CLASSNAME}::MainLayout()
+{
+    if (0x0 == m_pMainLayout) {
+        m_pMainLayout = new QVBoxLayout();
+        m_pMainLayout->setContentsMargins(0, 0, 0, 20);
+        m_pMainLayout->setSpacing(20);
+        m_pMainLayout->addWidget(ContentWidget());
+        m_pMainLayout->addLayout(BottomBtnLayout());
+    }
+    return m_pMainLayout;
+}
+
+QHBoxLayout *${CLASSNAME}::BottomBtnLayout()
+{
+    if(0x0 == m_pBottomBtnLayout) {
+        m_pBottomBtnLayout = new QHBoxLayout();
+        m_pBottomBtnLayout->setMargin(0);
+        m_pBottomBtnLayout->setSpacing(8);
+        m_pBottomBtnLayout->addStretch();
+        //m_pBottomBtnLayout->addWidget(AddBtn());
+        m_pBottomBtnLayout->addWidget(DoneBtn());
+        m_pBottomBtnLayout->addStretch();
+    }
+
+    return m_pBottomBtnLayout;
+}
+
+/*********************************************************************************
+ * ${CLASSNAME}Controller
+ *
+ *********************************************************************************/
+
+${CLASSNAME}Controller::${CLASSNAME}Controller()
+{
+    m_p${CLASSNAME} = 0x0;
+}
+
+${CLASSNAME}Controller::~${CLASSNAME}Controller()
+{
+    JY_RELEASE_CLASS(m_p${CLASSNAME})
+}
+
+void ${CLASSNAME}Controller::OnCallApiDidSuccess(ApiManager *pManager, ApiResponse *pResponse)
+{
+    JYProgressHUD::hideHUDForWidget(Widget());
+}
+
+void ${CLASSNAME}Controller::OnCallApiDidFailed(ApiManager *pManager, ApiResponse *pResponse)
+{
+    JYProgressHUD::hideHUDForWidget(Widget());
+}
+
+//void HomeWidgetController::Disconnect()
+//{
+//    SCManager::ShareInstance()->Disconnect();
+//}
+
+QWidget *${CLASSNAME}Controller::Widget()
+{
+    if(0x0 == m_p${CLASSNAME}) {
+        m_p${CLASSNAME} = new ${CLASSNAME}();
+        m_p${CLASSNAME}->SetCallback(this);
+
+        m_p${CLASSNAME}->setMinimumSize(892, 451);
+    }
+
+    return m_p${CLASSNAME};
+}
+
+void ${CLASSNAME}Controller::Show()
+{
+    JYWidgetController::Show();
+    GetWidget()->show();
+}
+
+${CLASSNAME} *${CLASSNAME}Controller::GetWidget()
+{
+    return qobject_cast<${CLASSNAME}*>(Widget());
+}

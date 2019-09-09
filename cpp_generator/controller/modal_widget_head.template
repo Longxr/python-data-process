@@ -1,0 +1,71 @@
+#ifndef ${CLASSDEFINE}CONTROLLER_H
+#define ${CLASSDEFINE}CONTROLLER_H
+
+#include <Common/common_global.h>
+#include <Common/Components/JYMessageBox.h>
+#include <Common/Components/ModalBaseWidget.h>
+#include <Common/Api/ZXYBApiManager.h>
+
+class ${CLASSNAME}Callback
+{
+public:
+//    virtual void Disconnect() = 0;
+};
+
+class ${CLASSNAME} : public ModalBaseWidget
+{
+    Q_OBJECT
+public:
+    explicit ${CLASSNAME}(QWidget *parent = 0, Qt::WindowFlags f = Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint | Qt::WindowTitleHint);
+    ~${CLASSNAME}();
+
+    void ShowEmpty(bool checked);
+
+    virtual void SetCallback(${CLASSNAME}Callback * pCallback);
+
+private:
+    JYContainer*                ContentWidget();
+    QPushButton*                DoneBtn();
+    JYWidget*                   EmptyWidget();
+
+    QVBoxLayout*                MainLayout();
+    QHBoxLayout*                BottomBtnLayout();
+
+private:
+    ${CLASSNAME}Callback*     m_pCallback;
+    JYContainer*              m_pContentWidget;
+    QPushButton*              m_pDoneBtn;
+    JYWidget*                 m_pEmptyWidget;
+    
+    QVBoxLayout*            m_pMainLayout;
+    QHBoxLayout*            m_pBottomBtnLayout;
+};
+                                                           
+class COMMONSHARED_EXPORT ${CLASSNAME}Controller  : public JYWidgetController
+                                                  , public ${CLASSNAME}Callback
+                                                  , private ApiManagerCallback
+{
+    Q_OBJECT
+public:
+    ${CLASSNAME}Controller();
+    ~${CLASSNAME}Controller();
+
+    //ApiManagerCallback
+    virtual void OnCallApiDidSuccess(ApiManager * pManager, ApiResponse * pResponse);
+    virtual void OnCallApiDidFailed(ApiManager * pManager, ApiResponse * pResponse);
+
+    //${CLASSNAME}Callback
+//    virtual void Disconnect();
+
+    //JYWidgetController
+    virtual QWidget *Widget();
+    void Show();
+
+    //getter & setter
+    ${CLASSNAME}* GetWidget();
+
+private:
+    ${CLASSNAME}*     m_p${CLASSNAME};
+};
+
+#endif // ${CLASSDEFINE}CONTROLLER_H
