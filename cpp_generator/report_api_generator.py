@@ -1,7 +1,8 @@
 #coding=utf-8
 
 from string import Template
- 
+
+
 class ReportCppGenerator(object):
     '''
     classdocs
