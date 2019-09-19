@@ -1,3 +1,3 @@
-QHBoxLayout*	GetMainLayout();
-QComboBox*	GetQComboBox();
-QPushButton*	GetEnterBtn();
+QPushButton*	GetLoginEduCloudBtn();
+QVBoxLayout*	GetMainLayout();
+QHBoxLayout*	GetTopBtnLayout();

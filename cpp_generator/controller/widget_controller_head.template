@@ -3,12 +3,6 @@
 
 #include <JYUIKit/JYUIKit.h>
 
-class ${CLASSNAME}Callback
-{
-public:
-//    virtual void OnCallXXX() = 0;
-};
-
 class ${CLASSNAME} : public JYWidget
 {
     Q_OBJECT
@@ -16,12 +10,9 @@ public:
     explicit ${CLASSNAME}(QWidget *parent = nullptr);
     ~${CLASSNAME}();
 
-    virtual void SetCallback(${CLASSNAME}Callback * pCallback);
-
 private:
     QHBoxLayout* MainLayout();
 
-    ${CLASSNAME}Callback*     m_pCallback;
     QHBoxLayout*            m_pMainLayout;
 };
 
@@ -32,9 +23,6 @@ class ${CLASSNAME}Controller  : public JYWidgetController
 public:
     ${CLASSNAME}Controller();
     ~${CLASSNAME}Controller();
-
-    //${CLASSNAME}Callback
-//    virtual void OnCallXXX();
 
     //JYWidgetController
     virtual QWidget *Widget();

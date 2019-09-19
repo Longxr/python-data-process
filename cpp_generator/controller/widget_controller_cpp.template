@@ -1,5 +1,7 @@
 #include "${CLASSNAME}Controller.h"
 
+#include <Common/AppManager/LocalizationInterceptor.h>
+
 /*********************************************************************************
  * ${CLASSNAME}
  *
@@ -17,12 +19,7 @@ ${CLASSNAME}::~${CLASSNAME}()
 
 }
 
-void ${CLASSNAME}::SetCallback(${CLASSNAME}Callback *pCallback)
-{
-    m_pCallback = pCallback;
-}
-
-QHBoxLayout* MainLayout()
+QHBoxLayout* ${CLASSNAME}::MainLayout()
 {
     if (nullptr == m_pMainLayout) {
         m_pMainLayout = new QHBoxLayout(this);
@@ -48,24 +45,17 @@ ${CLASSNAME}Controller::~${CLASSNAME}Controller()
     JY_RELEASE_CLASS(m_p${CLASSNAME})
 }
 
-//void HomeWidgetController::OnCallXXX()
-//{
-
-//}
-
 QWidget *${CLASSNAME}Controller::Widget()
 {
-    if(0x0 == m_p${CLASSNAME}) {
+    if(nullptr == m_p${CLASSNAME}) {
         m_p${CLASSNAME} = new ${CLASSNAME}();
-        m_p${CLASSNAME}->SetCallback(this);
-
         m_p${CLASSNAME}->setMinimumSize(892, 451);
     }
 
     return m_p${CLASSNAME};
 }
 
-${CLASSNAME}* Get${CLASSNAME}()
+${CLASSNAME}* ${CLASSNAME}Controller::Get${CLASSNAME}()
 {
     return qobject_cast<${CLASSNAME} *>(Widget());
 }

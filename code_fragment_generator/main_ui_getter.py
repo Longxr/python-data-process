@@ -36,7 +36,7 @@ if __name__ == '__main__':
         out_h_file.write(out_h)
 
         out_cpp = cpp_tmpl.safe_substitute(class_name=name_list[0], var_name=name_list[1], parent_name=parent_widget)
-        out_cpp_file.write(out_cpp)
+        out_cpp_file.write(out_cpp + '\n')
 
         var_nulls.append('m_p%s = nullptr;\n'%name_list[1])
 

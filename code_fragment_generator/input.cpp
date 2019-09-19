@@ -1,4 +1,2 @@
-CourseItemWidget
-QHBoxLayout*    m_pMainLayout;
-QComboBox*      m_pQComboBox;
-QPushButton*    m_pEnterBtn;
+STR_OLCR_LOGIN_VISITOR_BTN,
+STR_OLCR_LOGIN_VISITOR_TIP,
