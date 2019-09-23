@@ -1,3 +1,9 @@
-QPushButton*	GetLoginEduCloudBtn();
-QVBoxLayout*	GetMainLayout();
-QHBoxLayout*	GetTopBtnLayout();
+QHBoxLayout*	GetMainLayout();
+JYWidget*	GetTopListWidget();
+JYWidget*	GetHistogramWidget();
+JYWidget*	GetBottomWidget();
+QListView*	GetStudentListView();
+QLabel*	GetCountLabel();
+QPushButton*	GetScreenBtn();
+QPushButton*	GetStopBtn();
+QPushButton*	GetCancleBtn();

@@ -13,11 +13,12 @@ if __name__ == '__main__':
     input_file = open(os.path.join(root_dir, 'input.cpp'),'r')
     out_h_file = open(os.path.join(root_dir, 'output.h'),'w')
     out_cpp_file = open(os.path.join(root_dir, 'output.cpp'),'w')
-    template_cpp_file = open(os.path.join(root_dir, 'ui_getter.template'),'r')
+    template_ui_getter_file = open(os.path.join(root_dir, 'ui_getter.template'),'r')
+    template_layout_getter_file = open(os.path.join(root_dir, 'layout_getter.template'),'r')
     
     h_tmpl = Template('$class_name*\tGet$var_name();\n')
-    cpp_tmpl_str = template_cpp_file.read()
-    cpp_tmpl = Template(cpp_tmpl_str)
+    ui_getter_tmpl = Template(template_ui_getter_file.read())
+    layout_getter_tmpl = Template(template_layout_getter_file.read())
 
     parent_widget = input_file.readline().strip()
 
@@ -35,7 +36,11 @@ if __name__ == '__main__':
         out_h = h_tmpl.safe_substitute(class_name=name_list[0], var_name=name_list[1], parent_name=parent_widget)
         out_h_file.write(out_h)
 
-        out_cpp = cpp_tmpl.safe_substitute(class_name=name_list[0], var_name=name_list[1], parent_name=parent_widget)
+        out_cpp = "";
+        if "Layout" in name_list[0]:
+            out_cpp = layout_getter_tmpl.safe_substitute(class_name=name_list[0], var_name=name_list[1], parent_name=parent_widget)
+        else:
+            out_cpp = ui_getter_tmpl.safe_substitute(class_name=name_list[0], var_name=name_list[1], parent_name=parent_widget)
         out_cpp_file.write(out_cpp + '\n')
 
         var_nulls.append('m_p%s = nullptr;\n'%name_list[1])

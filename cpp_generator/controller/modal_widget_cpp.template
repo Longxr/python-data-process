@@ -38,11 +38,6 @@ void ${CLASSNAME}::ShowEmpty(bool checked)
     }
 }
 
-void ${CLASSNAME}::SetCallback(${CLASSNAME}Callback *pCallback)
-{
-    m_pCallback = pCallback;
-}
-
 JYContainer *${CLASSNAME}::ContentWidget()
 {
     if (0x0 == m_pContentWidget) {
@@ -147,11 +142,6 @@ void ${CLASSNAME}Controller::OnCallApiDidFailed(ApiManager *pManager, ApiRespons
 {
     JYProgressHUD::hideHUDForWidget(Widget());
 }
-
-//void HomeWidgetController::Disconnect()
-//{
-//    SCManager::ShareInstance()->Disconnect();
-//}
 
 QWidget *${CLASSNAME}Controller::Widget()
 {

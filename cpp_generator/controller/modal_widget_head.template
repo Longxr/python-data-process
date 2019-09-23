@@ -1,16 +1,7 @@
 #ifndef ${CLASSDEFINE}CONTROLLER_H
 #define ${CLASSDEFINE}CONTROLLER_H
 
-#include <Common/common_global.h>
-#include <Common/Components/JYMessageBox.h>
 #include <Common/Components/ModalBaseWidget.h>
-#include <Common/Api/ZXYBApiManager.h>
-
-class ${CLASSNAME}Callback
-{
-public:
-//    virtual void Disconnect() = 0;
-};
 
 class ${CLASSNAME} : public ModalBaseWidget
 {
@@ -20,8 +11,6 @@ public:
     ~${CLASSNAME}();
 
     void ShowEmpty(bool checked);
-
-    virtual void SetCallback(${CLASSNAME}Callback * pCallback);
 
 private:
     JYContainer*                ContentWidget();
@@ -42,7 +31,6 @@ private:
 };
                                                            
 class COMMONSHARED_EXPORT ${CLASSNAME}Controller  : public JYWidgetController
-                                                  , public ${CLASSNAME}Callback
                                                   , private ApiManagerCallback
 {
     Q_OBJECT
@@ -53,9 +41,6 @@ public:
     //ApiManagerCallback
     virtual void OnCallApiDidSuccess(ApiManager * pManager, ApiResponse * pResponse);
     virtual void OnCallApiDidFailed(ApiManager * pManager, ApiResponse * pResponse);
-
-    //${CLASSNAME}Callback
-//    virtual void Disconnect();
 
     //JYWidgetController
     virtual QWidget *Widget();

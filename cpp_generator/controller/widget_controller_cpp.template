@@ -11,7 +11,7 @@ ${CLASSNAME}::${CLASSNAME}(QWidget *parent) : JYWidget(parent)
 {
     m_pMainLayout = nullptr;
 
-    this->setLayout(MainLayout());
+    setLayout(MainLayout());
 }
 
 ${CLASSNAME}::~${CLASSNAME}()
