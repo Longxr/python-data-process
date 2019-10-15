@@ -1,0 +1,38 @@
+#include "${str_class_name}.h"
+
+
+/*********************************************************************************
+${str_class_name}
+*
+*********************************************************************************/
+${str_class_name}::${str_class_name}()
+{
+
+}
+
+${str_class_name}::${str_class_name}(const ${str_class_name}& obj)
+{
+${str_model_constructor}
+}
+
+${str_class_name}& ${str_class_name}::operator=(const ${str_class_name}& obj)
+{
+    if(this != &obj) {
+${str_model_constructor}
+    }
+
+    return *this;
+}
+
+void ${str_class_name}::RegisterMetaType()
+{
+    qRegisterMetaType<${str_class_name}>("${str_class_name}");
+    qRegisterMetaType<QList<${str_class_name}> >("QList<${str_class_name}>");
+}
+
+QMap<QString, QString> ${str_class_name}::ReplacedKeyFromPropertyName()
+{
+    QMap<QString, QString> map;
+${str_model_replace}
+    return map;
+}

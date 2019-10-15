@@ -1,0 +1,28 @@
+#ifndef ${str_class_define}_H
+#define ${str_class_define}_H
+
+#include <JYJson/JYJson.h>
+#include <Common/common_global.h>
+
+/*********************************************************************************
+${str_class_name}
+*
+*********************************************************************************/
+class COMMONSHARED_EXPORT ${str_class_name} : public JYJsonObjectProtocol
+{
+    Q_OBJECT
+public:
+    ${str_class_name}();
+    ${str_class_name}(const ${str_class_name} &);
+    ${str_class_name}& operator=(const ${str_class_name} &);
+
+    //JYJsonObjectProtocol
+    virtual void RegisterMetaType();
+    virtual QMap<QString, QString> ReplacedKeyFromPropertyName();
+
+${str_model_atti}
+};
+Q_DECLARE_METATYPE(${str_class_name})
+
+#endif // ${str_class_define}_H
+
