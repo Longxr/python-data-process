@@ -1,5 +1,5 @@
 /*********************************************************************************
-${str_api_class}ApiResponse
+${str_api_class}Response
 *
 *********************************************************************************/
 class COMMONSHARED_EXPORT ${str_api_class}Response : public ApiResponse
@@ -15,7 +15,7 @@ ${str_response_atti}
 };
 
 /*********************************************************************************
-${str_api_class}ApiManager
+${str_api_class}Manager
 *
 *********************************************************************************/
 class COMMONSHARED_EXPORT ${str_api_class}Manager : public ApiManager
@@ -39,7 +39,7 @@ ${str_request_atti}
 
 
 /*********************************************************************************
-${str_api_class}ApiResponse
+${str_api_class}Response
 *
 *********************************************************************************/
 ${str_api_class}Response::${str_api_class}Response()
@@ -60,7 +60,7 @@ ${str_response_replace}
 }
 
 /*********************************************************************************
-${str_api_class}ApiManager
+${str_api_class}Manager
 *
 *********************************************************************************/
 ${str_api_class}Manager::${str_api_class}Manager() : ApiManager()
