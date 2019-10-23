@@ -37,7 +37,7 @@ if __name__ == '__main__':
     input_file = open(os.path.join(root_dir, 'input.cpp'), 'r', encoding='gb18030', errors='ignore')
     out_file = open(os.path.join(root_dir, 'output.cpp'), 'w', encoding='gb18030')
     template_http_api_file = open(
-        os.path.join(root_dir, 'http_api.template'), 'r')
+        os.path.join(root_dir, os.path.join('template', 'tcp_api.template')), 'r')
 
     attri_tmpl = Template('JY_PROPERTY_READWRITE($type_name, $var_up_name) \t\t')
     request_param_tmpl = Template('params.insert("$var_name", _$var_up_name);\n')
@@ -48,8 +48,8 @@ if __name__ == '__main__':
     line_first = input_file.readline().split()
     class_name = line_first[0]
     request_type = line_first[1]
-    request_path = line_first[2]
-    print(class_name, request_type, request_path)
+    module_id = line_first[2]
+    print(class_name, request_type, module_id)
 
     input_file.readline() #空行
 
@@ -94,9 +94,8 @@ if __name__ == '__main__':
         data_constructor += '    ' + constructor_item
         
     
-    str_out = http_api_tmpl.safe_substitute(str_api_class=class_name, str_request_type=request_type, str_request_path=request_path,
-        str_request_atti=request_attri, str_request_params=request_param, str_response_atti=response_attri,
-        str_response_replace=response_replace, str_data_constructor=data_constructor)
+    str_out = http_api_tmpl.safe_substitute(str_api_class=class_name, str_request_type=request_type, str_module_id=module_id, 
+    str_request_atti=request_attri, str_request_params=request_param, str_response_atti=response_attri, str_response_replace=response_replace, str_data_constructor=data_constructor)
     out_file.write(str_out)
 
     print(request_attri)

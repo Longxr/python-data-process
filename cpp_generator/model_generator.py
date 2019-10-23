@@ -27,7 +27,7 @@ def fun_get_attri(line):
         if line_list[1] == 'int':
             attri_type = 'int'
         elif line_list[1] == 'long':
-            attri_type = 'qint32'
+            attri_type = 'qint64'
 
     return attri_name, attri_up_name, attri_type, comment
 
