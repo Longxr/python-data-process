@@ -94,7 +94,7 @@ if __name__ == '__main__':
         data_constructor += '    ' + constructor_item
         
     
-    str_out = http_api_tmpl.safe_substitute(str_api_class=class_name, str_request_type=request_type, str_module_id=module_id, 
+    str_out = http_api_tmpl.safe_substitute(str_api_class=class_name, str_api_class_response=class_name.strip('Notify'), str_request_type=request_type, str_module_id=module_id, 
     str_request_atti=request_attri, str_request_params=request_param, str_response_atti=response_attri, str_response_replace=response_replace, str_data_constructor=data_constructor)
     out_file.write(str_out)
 

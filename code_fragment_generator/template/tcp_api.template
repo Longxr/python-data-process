@@ -1,13 +1,12 @@
 /*********************************************************************************
-${str_api_class}Response
+${str_api_class_response}Response
 *
 *********************************************************************************/
-class COMMONSHARED_EXPORT ${str_api_class}Response : public ApiResponse
+class COMMONSHARED_EXPORT ${str_api_class_response}Response : public HDKTResponse
 {
     Q_OBJECT
 public:
-    ${str_api_class}Response();
-    ~${str_api_class}Response();
+    ${str_api_class_response}Response();
 
     virtual QMap<QString, QString> ReplacedKeyFromPropertyName();
 
@@ -39,22 +38,17 @@ ${str_request_atti}
 
 
 /*********************************************************************************
-${str_api_class}Response
+${str_api_class_response}Response
 *
 *********************************************************************************/
-${str_api_class}Response::${str_api_class}Response()
+${str_api_class_response}Response::${str_api_class_response}Response()
 {
 
 }
 
-${str_api_class}Response::~${str_api_class}Response()
+QMap<QString, QString> ${str_api_class_response}Response::ReplacedKeyFromPropertyName()
 {
-
-}
-
-QMap<QString, QString> ${str_api_class}Response::ReplacedKeyFromPropertyName()
-{
-    QMap<QString, QString> map = ApiResponse::ReplacedKeyFromPropertyName();
+    QMap<QString, QString> map = HDKTResponse::ReplacedKeyFromPropertyName();
 ${str_response_replace}
     return map;
 }
@@ -63,7 +57,7 @@ ${str_response_replace}
 ${str_api_class}Manager
 *
 *********************************************************************************/
-${str_api_class}Manager::${str_api_class}Manager() : ApiManager()
+${str_api_class}Manager::${str_api_class}Manager()
 {
     m_modelId = ${str_module_id};
     m_methodName = "${str_api_class}";
