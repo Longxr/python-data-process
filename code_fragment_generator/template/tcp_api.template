@@ -1,0 +1,96 @@
+/*********************************************************************************
+${str_api_class}Response
+*
+*********************************************************************************/
+class COMMONSHARED_EXPORT ${str_api_class}Response : public ApiResponse
+{
+    Q_OBJECT
+public:
+    ${str_api_class}Response();
+    ~${str_api_class}Response();
+
+    virtual QMap<QString, QString> ReplacedKeyFromPropertyName();
+
+${str_response_atti}
+};
+
+/*********************************************************************************
+${str_api_class}Manager
+*
+*********************************************************************************/
+class COMMONSHARED_EXPORT ${str_api_class}Manager : public ApiManager
+{
+    Q_OBJECT
+public:
+    ${str_api_class}Manager();
+
+    //ApiManager
+    virtual QMap<QString, QVariant> paramsForApi();
+    virtual void OnReceiveResponse(QString jsonString);
+
+${str_request_atti}
+};
+
+
+
+
+
+
+
+
+/*********************************************************************************
+${str_api_class}Response
+*
+*********************************************************************************/
+${str_api_class}Response::${str_api_class}Response()
+{
+
+}
+
+${str_api_class}Response::~${str_api_class}Response()
+{
+
+}
+
+QMap<QString, QString> ${str_api_class}Response::ReplacedKeyFromPropertyName()
+{
+    QMap<QString, QString> map = ApiResponse::ReplacedKeyFromPropertyName();
+${str_response_replace}
+    return map;
+}
+
+/*********************************************************************************
+${str_api_class}Manager
+*
+*********************************************************************************/
+${str_api_class}Manager::${str_api_class}Manager() : ApiManager()
+{
+    m_modelId = ${str_module_id};
+    m_methodName = "${str_api_class}";
+    m_responseName = "${str_api_class}Response";
+    m_requestType = SCRequest::TYPE_${str_request_type};
+}
+
+QMap<QString, QVariant> ${str_api_class}Manager::paramsForApi()
+{
+    QMap<QString, QVariant> params;
+${str_request_params}
+
+    return params;
+}
+
+void ${str_api_class}Manager::OnReceiveResponse(QString jsonString)
+{
+    ${str_api_class}Response * pResponse = new ${str_api_class}Response();
+    pResponse->SetPropertyWithString(jsonString);
+
+#ifdef PRINT_HDKT_API_RESPONSE
+    qDebug("%s: %s", pResponse->metaObject()->className(), jsonString.toStdString().c_str());
+#endif
+
+    if(m_pCallback) {
+        m_pCallback->OnCallApiDidSuccess(this, pResponse);
+    }
+
+    pResponse->deleteLater();
+}

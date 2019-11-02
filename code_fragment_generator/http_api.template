@@ -1,0 +1,137 @@
+/*********************************************************************************
+${str_api_class}Data
+*
+*********************************************************************************/
+class COMMONSHARED_EXPORT ${str_api_class}Data : public JYJsonObjectProtocol
+{
+    Q_OBJECT
+public:
+    ${str_api_class}Data();
+    ${str_api_class}Data(const ${str_api_class}Data &);
+    ${str_api_class}Data& operator=(const ${str_api_class}Data &);
+
+    //JYJsonObjectProtocol
+    virtual void RegisterMetaType();
+    virtual QMap<QString, QString> ReplacedKeyFromPropertyName();
+
+${str_response_atti}
+};
+Q_DECLARE_METATYPE(${str_api_class}Data)
+
+
+/*********************************************************************************
+${str_api_class}ApiResponse
+*
+*********************************************************************************/
+class COMMONSHARED_EXPORT ${str_api_class}ApiResponse : public HttpApiResponse
+{
+    Q_OBJECT
+public:
+    ${str_api_class}ApiResponse();
+
+    //JYJsonObjectProtocol
+    virtual QMap<QString, QString> ReplacedKeyFromPropertyName();
+
+    JY_PROPERTY_READWRITE(${str_api_class}Data, Data)
+};
+
+/*********************************************************************************
+${str_api_class}ApiManager
+*
+*********************************************************************************/
+class COMMONSHARED_EXPORT ${str_api_class}ApiManager : public EduCloudApiManager
+{
+    Q_OBJECT
+public:
+    ${str_api_class}ApiManager(QObject *parent = nullptr);
+
+    virtual QMap<QString, QVariant> paramsForApi();
+    virtual void OnReceiveResponse(QString jsonString);
+
+${str_request_atti}
+};
+
+
+/*********************************************************************************
+${str_api_class}Data
+*
+*********************************************************************************/
+${str_api_class}Data::${str_api_class}Data()
+{
+
+}
+
+${str_api_class}Data::${str_api_class}Data(const ${str_api_class}Data& obj)
+{
+${str_data_constructor}
+}
+
+${str_api_class}Data& ${str_api_class}Data::operator=(const ${str_api_class}Data& obj)
+{
+    if(this != &obj) {
+${str_data_constructor}
+    }
+
+    return *this;
+}
+
+void ${str_api_class}Data::RegisterMetaType()
+{
+    qRegisterMetaType<${str_api_class}Data>("${str_api_class}Data");
+}
+
+QMap<QString, QString> ${str_api_class}Data::ReplacedKeyFromPropertyName()
+{
+    QMap<QString, QString> map;
+${str_response_replace}
+    return map;
+}
+
+/*********************************************************************************
+${str_api_class}ApiResponse
+*
+*********************************************************************************/
+${str_api_class}ApiResponse::${str_api_class}ApiResponse()
+{
+
+}
+
+QMap<QString, QString> ${str_api_class}ApiResponse::ReplacedKeyFromPropertyName()
+{
+    QMap<QString, QString> map = HttpApiResponse::ReplacedKeyFromPropertyName();
+    map.insert("Data","data");
+
+    return map;
+}
+
+/*********************************************************************************
+${str_api_class}ApiManager
+*
+*********************************************************************************/
+${str_api_class}ApiManager::${str_api_class}ApiManager(QObject *parent) : EduCloudApiManager (parent)
+{
+    m_requestType = TYPE_${str_request_type};
+    m_requestPath = "${str_request_path}";
+}
+
+QMap<QString, QVariant> ${str_api_class}ApiManager::paramsForApi()
+{
+    QMap<QString, QVariant> params = HttpApiManager::paramsForApi();
+${str_request_params}
+
+    return params;
+}
+
+void ${str_api_class}ApiManager::OnReceiveResponse(QString jsonString)
+{
+    ${str_api_class}ApiResponse* pResponse = new ${str_api_class}ApiResponse();
+    pResponse->SetPropertyWithString(jsonString);
+
+#ifdef PRINT_EDU_CLOUD_API_RESPONSE
+    qDebug("%s: %s", pResponse->metaObject()->className(), jsonString.toStdString().c_str());
+#endif
+
+    emit callApiSucceed(pResponse);
+
+    pResponse->deleteLater();
+}
