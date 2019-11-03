@@ -66,13 +66,16 @@ def flv_dir_to_mp4(in_path_dir, out_path_file):
                     file_path = os.path.join(root, file)
                     out_files.append(file_path)
 
-    cmd = '|'.join(out_files)
-    print(out_files)
-    cmd = 'concat:' + "\"" + cmd + "\""
-    cmd = 'ffmpeg -i ' + cmd + ' -c copy -absf aac_adtstoasc -movflags faststart ' + out_path_file
+    ff = FFmpeg(inputs={'concat:' + '|'.join(out_files): None}, 
+                        outputs={out_path_file: '-c copy -absf aac_adtstoasc -movflags faststart'})
+    ff.run()
+    # cmd = '|'.join(out_files)
+    # print(out_files)
+    # cmd = 'concat:' + "\"" + cmd + "\""
+    # cmd = 'ffmpeg -i ' + cmd + ' -c copy -absf aac_adtstoasc -movflags faststart ' + out_path_file
     # cmd = 'ffmpeg -i ' + cmd + ' -safe 0 -segment_time_metadata 1 -vf select=concatdec_select -af aselect=concatdec_select,aresample=async=1 ' + out_path_file
     # print(cmd)
-    print(execCmd(cmd))
+    # print(execCmd(cmd))
 
 
 if __name__ == '__main__':
