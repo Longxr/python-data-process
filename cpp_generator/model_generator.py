@@ -47,6 +47,7 @@ if __name__ == '__main__':
     model_replace_tmpl = Template('map.insert("$var_up_name","$var_name");\n')
     constructor_tmpl = Template('this->_$var_up_name\t\t\t= obj._$var_up_name;\n')
     equal_tmpl = Template(' (obj._$var_up_name == this->_$var_up_name) &&')
+    zero_tmpl = Template('this->_$var_up_name = 0;\n')
 
     class_name = input_file.readline().strip()
     h_class_file = open(os.path.join(output_dir, r'%s.h' % class_name), 'w', encoding='gb18030')
@@ -57,6 +58,7 @@ if __name__ == '__main__':
     model_attri = ''
     model_replace = ''
     model_constructor = ''
+    model_zero = ''
 
     table = str.maketrans({key: None for key in string.punctuation})
         
@@ -80,15 +82,13 @@ if __name__ == '__main__':
         constructor_item = constructor_tmpl.safe_substitute(var_up_name=attri_up_name)
         model_constructor += '    ' + constructor_item
 
-        # equal_item = equal_tmpl.safe_substitute(var_up_name=attri_up_name)
-        # model_equal += equal_item
-        # if line_count % 2 == 0:
-        #     model_equal += '\n          '
-        
-    # model_equal = model_equal[:-3] + ';'
+        if attri_type == 'int' or attri_type == 'qint64':
+            zero_item = zero_tmpl.safe_substitute(var_up_name=attri_up_name)
+            model_zero += '    ' + zero_item
 
     str_h_out = h_tmpl.safe_substitute(str_class_name = class_name, str_class_define = class_name.upper(), str_model_atti=model_attri)
-    str_cpp_out = cpp_tmpl.safe_substitute(str_class_name = class_name, str_model_replace=model_replace, str_model_constructor=model_constructor)
+    str_cpp_out = cpp_tmpl.safe_substitute(str_class_name = class_name, str_model_replace=model_replace, str_model_constructor=model_constructor,
+                                            str_model_zero = model_zero)
 
     h_class_file.write(str_h_out)
     cpp_class_file.write(str_cpp_out)
