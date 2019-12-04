@@ -1,13 +1,12 @@
 /*********************************************************************************
-${str_api_class}Response
+${str_api_class_response}
 *
 *********************************************************************************/
-class COMMONSHARED_EXPORT ${str_api_class}Response : public ApiResponse
+class COMMONSHARED_EXPORT ${str_api_class_response} : public HDKTResponse
 {
     Q_OBJECT
 public:
-    ${str_api_class}Response();
-    ~${str_api_class}Response();
+    ${str_api_class_response}();
 
     virtual QMap<QString, QString> ReplacedKeyFromPropertyName();
 
@@ -18,7 +17,7 @@ ${str_response_atti}
 ${str_api_class}Manager
 *
 *********************************************************************************/
-class COMMONSHARED_EXPORT ${str_api_class}Manager : public ApiManager
+class COMMONSHARED_EXPORT ${str_api_class}Manager : public HDKTManager
 {
     Q_OBJECT
 public:
@@ -39,22 +38,17 @@ ${str_request_atti}
 
 
 /*********************************************************************************
-${str_api_class}Response
+${str_api_class_response}
 *
 *********************************************************************************/
-${str_api_class}Response::${str_api_class}Response()
+${str_api_class_response}::${str_api_class_response}()
 {
 
 }
 
-${str_api_class}Response::~${str_api_class}Response()
+QMap<QString, QString> ${str_api_class_response}::ReplacedKeyFromPropertyName()
 {
-
-}
-
-QMap<QString, QString> ${str_api_class}Response::ReplacedKeyFromPropertyName()
-{
-    QMap<QString, QString> map = ApiResponse::ReplacedKeyFromPropertyName();
+    QMap<QString, QString> map = HDKTResponse::ReplacedKeyFromPropertyName();
 ${str_response_replace}
     return map;
 }
@@ -63,9 +57,8 @@ ${str_response_replace}
 ${str_api_class}Manager
 *
 *********************************************************************************/
-${str_api_class}Manager::${str_api_class}Manager() : ApiManager()
+${str_api_class}Manager::${str_api_class}Manager()
 {
-    m_modelId = ${str_module_id};
     m_methodName = "${str_api_class}";
     m_responseName = "${str_api_class}Response";
     m_requestType = SCRequest::TYPE_${str_request_type};
@@ -81,7 +74,7 @@ ${str_request_params}
 
 void ${str_api_class}Manager::OnReceiveResponse(QString jsonString)
 {
-    ${str_api_class}Response * pResponse = new ${str_api_class}Response();
+    ${str_api_class_response} * pResponse = new ${str_api_class_response}();
     pResponse->SetPropertyWithString(jsonString);
 
 #ifdef PRINT_HDKT_API_RESPONSE

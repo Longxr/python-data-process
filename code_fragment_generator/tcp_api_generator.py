@@ -49,15 +49,20 @@ if __name__ == '__main__':
     class_name = line_first[0]
     request_type = line_first[1]
     module_id = line_first[2]
-    print(class_name, request_type, module_id)
+    response_name = class_name
+
+    if  'Notify' not in response_name:
+        response_name += 'Response'
+
+    print(class_name, request_type, module_id, response_name)
 
     input_file.readline() #空行
 
     request_attri = ''
     request_param = ''
+    response_constructor = ''
     response_attri = ''
     response_replace = ''
-    data_constructor = ''
 
     table = str.maketrans({key: None for key in string.punctuation})
     # new_s = s.translate(table)
@@ -75,6 +80,8 @@ if __name__ == '__main__':
 
         param_item = request_param_tmpl.safe_substitute(var_name=attri_name, var_up_name=attri_up_name)
         request_param += '    ' + param_item
+
+
         
     while 1:
         line = input_file.readline()
@@ -90,12 +97,8 @@ if __name__ == '__main__':
         replace_item = response_replace_tmpl.safe_substitute(var_name=attri_name, var_up_name=attri_up_name)
         response_replace += '    ' + replace_item
 
-        constructor_item = constructor_tmpl.safe_substitute(var_up_name=attri_up_name)
-        data_constructor += '    ' + constructor_item
-        
-    
-    str_out = http_api_tmpl.safe_substitute(str_api_class=class_name, str_request_type=request_type, str_module_id=module_id, 
-    str_request_atti=request_attri, str_request_params=request_param, str_response_atti=response_attri, str_response_replace=response_replace, str_data_constructor=data_constructor)
+    str_out = http_api_tmpl.safe_substitute(str_api_class=class_name, str_api_class_response=response_name, str_request_type=request_type, str_module_id=module_id, 
+    str_request_atti=request_attri, str_request_params=request_param, str_response_atti=response_attri, str_response_replace=response_replace)
     out_file.write(str_out)
 
     print(request_attri)
