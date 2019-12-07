@@ -2,7 +2,7 @@ import requests
 from lxml import html
 
 
-def spider(sn):
+def spider(sn, book_list):
     # 爬取京东网图书数据
     url = 'https://search.jd.com/Search?keyword={0}'.format(sn)
 
@@ -33,6 +33,13 @@ def spider(sn):
         ziying = li.xpath('div//i[@class="goods-icons J-picon-tips J-picon-fix"]/text()')
         if len(ziying) > 0:
             print(ziying)
+
+        book_list.append({
+            'price': price[0],
+            'title': title[0],
+            'link': link[0],
+            'store': store[0]
+        })
 
 if __name__ == '__main__':
     sn = '9787115428028'

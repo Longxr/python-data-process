@@ -1,7 +1,8 @@
 import requests
 from lxml import html
 
-def spider(sn):
+
+def spider(sn, book_list):
     # 爬取当当网图书数据
     url = 'http://search.dangdang.com/?key={sn}&act=input'.format(sn = sn)
 
@@ -26,6 +27,13 @@ def spider(sn):
         store = li.xpath('p[@class="search_shangjia"]/a/text()')
         store = '当当自营' if len(store) == 0 else store[0]
         print(store)
+
+        book_list.append({
+            'price': price[0].replace('¥', ''),
+            'title': title[0],
+            'link': link[0],
+            'store': store[0]
+        })
 
 if __name__ == '__main__':
     sn = '9787115428028'

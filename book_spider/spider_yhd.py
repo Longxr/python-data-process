@@ -2,7 +2,7 @@ import requests
 from lxml import html
 
 
-def spider(sn):
+def spider(sn, book_list):
     # 爬取一号店图书数据
     url = 'https://search.yhd.com/c0-0/k{0}/'.format(sn)
 
@@ -26,6 +26,13 @@ def spider(sn):
 
         store = li.xpath('div//p[@class="searh_shop_storeName storeName limit_width"]/a/@title')
         print(store[0])
+
+        book_list.append({
+            'price': price[0],
+            'title': title[0],
+            'link': link[0],
+            'store': store[0]
+        })
 
 
 if __name__ == '__main__':
