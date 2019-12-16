@@ -133,3 +133,4 @@ code_fragment_generator/output.cpp
 code_fragment_generator/input.cpp
 cpp_generator/className.xml
 *cookie.json
+html2md/html.md
