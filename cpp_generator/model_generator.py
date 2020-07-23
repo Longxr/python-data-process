@@ -7,19 +7,48 @@ from string import Template
 
 
 def fun_replace(str):
+    """去除list中的非单词字符和空白字符"""
     str1 = re.sub(r'[^\w\s]', '', str)
     return str1.strip()
 
 
+def not_empty(s):
+    """过滤掉空字符串"""
+    return s and s.strip()
+
+# def fun_get_attri(line):
+#     line_list = line.split('//')
+#     comment = ''
+#     if len(line_list) > 1:
+#         comment = '//' + line_list[1]
+
+#     line_list = line_list[0].split(':')
+#     line_list = list(map(fun_replace, line_list))
+
+#     attri_name = line_list[0]
+#     attri_up_name = attri_name[0].upper() + attri_name[1:]
+#     attri_type = 'QString'
+
+#     if len(line_list) > 1:
+#         if line_list[1] == 'int':
+#             attri_type = 'int'
+#         elif line_list[1] == 'long' or line_list[1] == 'int64':
+#             attri_type = 'qint64'
+
+#     return attri_name, attri_up_name, attri_type, comment
+
+
 def fun_get_attri(line):
-    line_list = line.split('//')
-    comment = ''
-    if len(line_list) > 1:
-        comment = '//' + line_list[1]
-
-    line_list = line_list[0].split(':')
+    """解析xml生成类属性"""
+    line_list = line.split('|')
     line_list = list(map(fun_replace, line_list))
+    line_list = list(filter(not_empty, line_list))
 
+    comment = ''
+    if len(line_list) > 2:
+        comment = '//' + line_list[2]
+
+    print(line_list)
     attri_name = line_list[0]
     attri_up_name = attri_name[0].upper() + attri_name[1:]
     attri_type = 'QString'
@@ -38,7 +67,7 @@ if __name__ == '__main__':
     tmpl_dir = os.path.join(root_dir, 'template')
     output_dir = os.path.join(root_dir, 'generator')
     input_file = open(os.path.join(root_dir, 'className.xml'),
-                      'r', encoding='gb18030', errors='ignore')
+                      'r', encoding='utf-8', errors='ignore')
 
     template_cpp_file = open(os.path.join(tmpl_dir, 'model_cpp.tmpl'), 'r')
     cpp_tmpl = Template(template_cpp_file.read())
@@ -56,7 +85,7 @@ if __name__ == '__main__':
 
     class_name = input_file.readline().strip()
     h_class_file = open(os.path.join(output_dir, r'%s.h' %
-                                     class_name), 'w', encoding='gb18030')
+                                     class_name), 'w', encoding='utf-8')
     cpp_class_file = open(os.path.join(
         output_dir, r'%s.cpp' % class_name), 'w')
 
